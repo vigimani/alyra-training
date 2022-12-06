@@ -38,14 +38,10 @@ contract Voting is Ownable{
 /// Admin du vote enregistre une liste blanche identifiées par leur adresse Eth
     function voterRegistration(address[] memory _listaddress) public onlyOwner {
         status = WorkflowStatus.RegisteringVoters;
-        if (_listaddress.length == 0){
-            _listaddress[0] = msg.sender;
-        } else {
-            for (uint i=0; i < _listaddress.length;i++){
-                user[_listaddress[i]].isRegistered = true;
-                emit VoterRegistered(_listaddress[i]);
-            }
-        } 
+        for (uint i=0; i < _listaddress.length;i++){
+            user[_listaddress[i]].isRegistered = true;
+            emit VoterRegistered(_listaddress[i]);
+        }
     }
 
 /// Admin commence la session d'enregistrement des propositions
@@ -87,8 +83,7 @@ contract Voting is Ownable{
     function votesTailling() public onlyOwner {status = WorkflowStatus.VotesTallied;}
 
 // Get results and vote of users
-    function winningProposal() public onlyOwner returns(string memory, uint){
-        require(status == WorkflowStatus.VotesTallied);
+    function winningProposal() public returns(string memory, uint){
         return(propId[winningProposalId].description, propId[winningProposalId].voteCount);
     }
 
