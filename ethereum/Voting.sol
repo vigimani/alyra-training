@@ -4,8 +4,8 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 
 contract Voting is Ownable{
 
-    uint propalId =0;
-    uint winningProposalId=0;
+    uint propalId;
+    uint winningProposalId;
 
     event VoterRegistered(address voterAddress); 
     event WorkflowStatusChange(WorkflowStatus previousStatus, WorkflowStatus newStatus);
