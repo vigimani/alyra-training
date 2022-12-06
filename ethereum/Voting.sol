@@ -91,6 +91,4 @@ contract Voting is Ownable{
         require(user[_addr].hasVoted, "not voted yet");
         return propId[user[_addr].votedProposalId].description;
     }
-
-
 }
