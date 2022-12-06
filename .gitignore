@@ -1,3 +1,4 @@
 gethTest
 .git
 .gitignore
+.env
