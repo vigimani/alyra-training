@@ -1,2 +1,3 @@
-//lancement d'un projet truffle
 truffle init
+truffle compile //pour compiler
+truffle deploy // aprèsnlancement de ganache
