@@ -1,3 +1,6 @@
 truffle init
 truffle compile //pour compiler
 truffle deploy // aprèsnlancement de ganache
+
+tips :
+npm install --prefix . || pour installer dans le dir 
