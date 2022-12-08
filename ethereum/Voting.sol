@@ -4,8 +4,8 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 
 contract Voting is Ownable{
 
-    uint propalId;
-    uint winningProposalId;
+    uint propalId =0;
+    uint winningProposalId=0;
 
     event VoterRegistered(address voterAddress); 
     event WorkflowStatusChange(WorkflowStatus previousStatus, WorkflowStatus newStatus);
@@ -34,10 +34,12 @@ contract Voting is Ownable{
         VotesTallied
     }
     WorkflowStatus public status;
+    WorkflowStatus public prevStatus;
 
 /// Admin du vote enregistre une liste blanche identifiées par leur adresse Eth
-    function voterRegistration(address[] memory _listaddress) public onlyOwner {
+    function voterRegistration(address[] memory _listaddress) private onlyOwner {
         status = WorkflowStatus.RegisteringVoters;
+        emit WorkflowStatusChange(prevStatus,status);
         for (uint i=0; i < _listaddress.length;i++){
             user[_listaddress[i]].isRegistered = true;
             emit VoterRegistered(_listaddress[i]);
@@ -45,7 +47,7 @@ contract Voting is Ownable{
     }
 
 /// Admin commence la session d'enregistrement des propositions
-    function openProposalsReg() public onlyOwner {status = WorkflowStatus.ProposalsRegistrationStarted;}
+    function openProposalsReg() public onlyOwner {prevStatus = status;status = WorkflowStatus.ProposalsRegistrationStarted;emit WorkflowStatusChange(prevStatus,status);}
 
 /// Les électeurs inscrits sont autorisés à enregistrer leurs propositions
     function makeProposal(string memory _desc) public {
@@ -60,8 +62,8 @@ contract Voting is Ownable{
     }
 
 // Admin met fin à la session d'enregistrement des propositions et lance la session de vote
-    function closeProposalsReg() public onlyOwner {status = WorkflowStatus.ProposalsRegistrationEnded;}
-    function openVoting() public onlyOwner {status = WorkflowStatus.VotingSessionStarted;}
+    function closeProposalsReg() public onlyOwner {prevStatus = status;status = WorkflowStatus.ProposalsRegistrationEnded;emit WorkflowStatusChange(prevStatus,status);}
+    function openVoting() public onlyOwner {prevStatus = status; status = WorkflowStatus.VotingSessionStarted; emit WorkflowStatusChange(prevStatus,status);}
 
 // Les électeurs insrits votent pour leur proposition préférée
     function vote(uint _propalId) public {
@@ -77,10 +79,10 @@ contract Voting is Ownable{
     }
 
 // Admin met fin à la session de vote
-    function closeVoting() public onlyOwner {status = WorkflowStatus.VotingSessionEnded;}
+    function closeVoting() public onlyOwner {prevStatus = status;status = WorkflowStatus.VotingSessionEnded;emit WorkflowStatusChange(prevStatus,status);}
 
 // Admin compte les votes
-    function votesTailling() public onlyOwner {status = WorkflowStatus.VotesTallied;}
+    function votesTailling() public onlyOwner {prevStatus = status;status = WorkflowStatus.VotesTallied;emit WorkflowStatusChange(prevStatus,status);}
 
 // Get results and vote of users
     function winningProposal() public returns(string memory, uint){
@@ -91,4 +93,5 @@ contract Voting is Ownable{
         require(user[_addr].hasVoted, "not voted yet");
         return propId[user[_addr].votedProposalId].description;
     }
+
 }
