@@ -15,6 +15,12 @@ module.exports = {
       network_id:5,
       networkCheckTimeoutnetworkCheckTimeout: 10000,
       timeoutBlocks: 200,  
+    },
+    mumbai: {
+      provider: function(){
+        return new HDWalletProvider(`${process.env.PRIVATE_KEY}`, `https://eth-mainnet.g.alchemy.com/v2/Tq1AOUpuFjYqIqve5C0p52dGFsu6xGXu`)
+      },
+      network_id:80001,
     }
   },
 
