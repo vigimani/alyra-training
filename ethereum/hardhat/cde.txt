@@ -1,6 +1,9 @@
 yarn init
 yarn add --dev hardhat
 yarn hardhat
+yarn add dotenv
+
 yarn hardhat run scripts/deploy.js --network goerli
 yarn hardhat verify --network goerli ADDR PARAM
-yarn add dotenv
+
+yarn add hardhat-deploy
