@@ -7,3 +7,11 @@ yarn hardhat run scripts/deploy.js --network goerli
 yarn hardhat verify --network goerli ADDR PARAM
 
 yarn add hardhat-deploy
+
+
+--- local
+yarn hardhat node 
+yarn hardhat node --no-deploy
+
+
+-- goerli

@@ -6,3 +6,10 @@ const networkConfig = {
         name: "goerli"
     }
 }
+
+const developmentChains = ["hardhat", "localhost"]
+
+module.exports = {
+    networkConfig,
+    developmentChains
+}
