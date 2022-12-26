@@ -15,3 +15,15 @@ yarn hardhat node --no-deploy
 
 
 -- goerli
+
+
+yarn add "@openzeppelin/contracts"
+
+yarn add --dev hardhat @nomiclabs/hardhat-ethers@npm:hardhat-deploy-ethers ethers
+
+yarn hardhat deploy --network goerli
+
+
+----
+yarn hardhat test (enable gas reporter dans hardhat config)
+yarn hadhat coverage
