@@ -1,0 +1,17 @@
+truffle init
+truffle compile //pour compiler
+truffle deploy // aprèsnlancement de ganache
+
+tips :
+npm install --prefix . || pour installer dans le dir 
+
+
+    var instance = SimpleStorage.deployed()
+    //GET
+    const balance = web3.eth.getBalance(instance.address)
+    console.log(balance)
+    //SET
+    instance.set(10)
+    //GET
+    const balance2 = web3.eth.getBalance(instance.address)
+    console.log(balance)
