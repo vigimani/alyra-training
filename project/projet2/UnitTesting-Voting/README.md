@@ -22,11 +22,11 @@ The purpose of this doc is to test the solidity contract Voting.sol and its depl
 
 2. Explanation on tests realized
 
-├── @vote-deployment.test.js
+@vote-deployment.test.js
       File that tests if the contract is correctly deployed 
               ✔ should deploy the smart contract
 
-├── vote-add.test.js
+vote-add.test.js
       File that tests the following functions :
         addVoter:
               ✔ should add a voter if owner and correct workflow status
@@ -59,7 +59,7 @@ The purpose of this doc is to test the solidity contract Voting.sol and its depl
               ✔ should emit an event if success
               ✔ should return the correct Proposal
 
-├── vote-get.test.js
+vote-get.test.js
       File that tests the following functions :
         getVoter : 
               ✔ should NOT give voter if not called by a Voter
@@ -165,14 +165,12 @@ The purpose of this doc is to test the solidity contract Voting.sol and its depl
 
   45 passing (3s)
 
--------------|----------|----------|----------|----------|----------------|
+
 File         |  % Stmts | % Branch |  % Funcs |  % Lines |Uncovered Lines |
 -------------|----------|----------|----------|----------|----------------|
  contracts/  |      100 |    95.83 |      100 |      100 |                |
   Voting.sol |      100 |    95.83 |      100 |      100 |                |
--------------|----------|----------|----------|----------|----------------|
 All files    |      100 |    95.83 |      100 |      100 |                |
--------------|----------|----------|----------|----------|----------------|
 
 
 
