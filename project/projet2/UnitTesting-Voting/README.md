@@ -1,26 +1,12 @@
-TEST MODULE FOR VOTING CONTRACT - Projet 2 Alyra
+# TEST MODULE FOR VOTING CONTRACT - Projet 2 Alyra
 
 The purpose of this doc is to test the solidity contract Voting.sol and its deployment. 
 
-1. Tree of project
+## Table of Contents
+1. [Explanation on tests realized]
+2. [Test coverage : yarn hardhat coverage] 
 
-├── contracts
-│   └── Voting.sol
-├── deploy
-│   └── 01-deploy-Voting.js 
-├── hardhat.config.js 
-├── helper-hardhat-config.js
-├── test ##tests directory
-│   └── unit
-│       ├── @vote-deployment.test.js
-│       ├── vote-add.test.js
-│       ├── vote-get.test.js
-│       └── vote-states.test.js
-├── utils
-│   └── verify.js
-
-
-2. Explanation on tests realized
+1. Explanation on tests realized
 
 @vote-deployment.test.js
       File that tests if the contract is correctly deployed 
@@ -92,7 +78,7 @@ vote-get.test.js
               ✔ should NOT launch tallyVotes (71ms)
 
 
-3. Test results and coverage : yarn hardhat coverage 
+3. Test coverage : yarn hardhat coverage 
 
   Units tests of Voting smart contract
     Deployment
