@@ -11,14 +11,16 @@ The purpose of this doc is to test the solidity contract Voting.sol and its depl
 
 
 ***
-```
+
 @vote-deployment.test.js
       File that tests if the contract is correctly deployed 
+```
               ✔ should deploy the smart contract
 ```
-```
+
 vote-add.test.js
       File that tests the following functions :
+```
         addVoter:
               ✔ should add a voter if owner and correct workflow status
               ✔ should beRegistered if addVoter (40ms)
@@ -50,9 +52,10 @@ vote-add.test.js
               ✔ should emit an event if success
               ✔ should return the correct Proposal
 ```
-```
+
 vote-get.test.js
       File that tests the following functions :
+```
         getVoter : 
               ✔ should NOT give voter if not called by a Voter
               ✔ should give voter if Voter
@@ -61,9 +64,10 @@ vote-get.test.js
               ✔ should NOT give Proposal if no id proposal found
               ✔ should give Proposal if proposal added and called from Voter
               ✔ should give Proposal no matter the workflow (113ms)
-
-├── vote-states.test.js
+```
+vote-states.test.js
       File that tests states and workflow status :
+```
             Only Owner can change state
               ✔ should NOT start Proposal registering if NOT the owner
               ✔ should NOT end Proposal registering if NOT the owner
