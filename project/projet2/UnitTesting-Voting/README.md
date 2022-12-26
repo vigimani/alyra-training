@@ -92,9 +92,7 @@ vote-states.test.js
 
 File         |  % Stmts | % Branch |  % Funcs |  % Lines |Uncovered Lines |
 -------------|----------|----------|----------|----------|----------------|
- contracts/  |      100 |    95.83 |      100 |      100 |                |
   Voting.sol |      100 |    95.83 |      100 |      100 |                |
-All files    |      100 |    95.83 |      100 |      100 |                |
 
 
 
