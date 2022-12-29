@@ -22,7 +22,6 @@ const { developmentChains } = require("../../helper-hardhat-config")
             it("Should deploy the smart contract", async function() {
                 await deployments.fixture(["voting"])
                 vote = await ethers.getContract("Voting")
-                // console.log(vote)
             })
         })
     })

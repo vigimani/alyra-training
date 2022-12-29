@@ -28,7 +28,7 @@ const { developmentChains } = require("../../helper-hardhat-config")
             it('should beRegistered if addVoter', async function () {
                 await vote.addVoter(accounts[1].address)
                 let x = await vote.connect(accounts[1]).getVoter(accounts[1].address)
-                await expect(x.isRegistered).to.be.equal(true)
+                await assert(x.isRegistered === true)
             });
             it('should emit an event if addVoter', async function () {
                 await expect(vote.addVoter(accounts[1].address)).to.emit(
@@ -104,7 +104,7 @@ const { developmentChains } = require("../../helper-hardhat-config")
                 await vote.startProposalsRegistering()
                 await vote.connect(accounts[1]).addProposal("Proposal 0")
                 let x = await vote.connect(accounts[1]).getOneProposal(1)
-                await expect(x.description).to.be.equal("Proposal 0")
+                await assert(x.description === "Proposal 0")
             });
             it('should add multiple Proposal if Voter', async function () {
                 await vote.addVoter(accounts[1].address)
@@ -113,8 +113,8 @@ const { developmentChains } = require("../../helper-hardhat-config")
                 await vote.connect(accounts[1]).addProposal("Proposal 1")
                 let x = await vote.connect(accounts[1]).getOneProposal(1)
                 let y = await vote.connect(accounts[1]).getOneProposal(2)
-                await expect(x.description).to.be.equal("Proposal 0")
-                await expect(y.description).to.be.equal("Proposal 1")
+                await assert(x.description === "Proposal 0")
+                await assert(y.description === "Proposal 1")
             });
         })
         //Test setVote
@@ -234,7 +234,7 @@ const { developmentChains } = require("../../helper-hardhat-config")
                 await vote.startVotingSession()
                 await vote.endVotingSession()
                 await vote.tallyVotes()
-                await expect(await vote.winningProposalID.call()).to.equal(0)
+                await expect(await vote.winningProposalID.call()).to.be.equal(0)
             });
         })
         describe("tallyVotes success", function() {
@@ -265,7 +265,7 @@ const { developmentChains } = require("../../helper-hardhat-config")
             it('should return the correct Proposal', async function () {
                 await vote.tallyVotes()
                 let y = await vote.winningProposalID.call()
-                await expect(y.toString()).to.equal("4")
+                await assert(y.toString() === "4")
             });
         })
 })
