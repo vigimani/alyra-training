@@ -3,7 +3,11 @@
 pragma solidity 0.8.17;
 import "../node_modules/@openzeppelin/contracts/access/Ownable.sol";
 
-
+/// @title My first voting contract - project 2 
+/// @author Victor
+/// @notice You can use this contract to simulate a voting process
+/// @dev All function calls are currently implemented without side effects
+/// @custom:experimental This is an experimental contract.
 contract Voting is Ownable {
 
     uint public winningProposalID;
@@ -43,10 +47,12 @@ contract Voting is Ownable {
         _;
     }
     
-    // on peut faire un modifier pour les états
-
     // ::::::::::::: GETTERS ::::::::::::: //
 
+    /// @notice return Voter after an adress is given
+    /// @dev OnlyVoters can call this function
+    /// @param _addr the adress of the voter that you want to get
+    /// @return Voter 
     function getVoter(address _addr) external onlyVoters view returns (Voter memory) {
         return voters[_addr];
     }

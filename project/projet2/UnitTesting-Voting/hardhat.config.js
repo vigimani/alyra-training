@@ -4,6 +4,7 @@ require("@nomiclabs/hardhat-etherscan");
 require("hardhat-deploy");
 require("hardhat-gas-reporter")
 require("solidity-coverage")
+require("hardhat-docgen")
 
 const PK = process.env.PK || "";
 const ALCHEMY = process.env.ALCHEMY || "";
@@ -41,6 +42,12 @@ module.exports = {
       1: 0,
     }
   },
+
+  docgen: {
+    path:"./docs",
+    clear: true,
+  },
+
   gasReporter: {
     enabled: true
   }

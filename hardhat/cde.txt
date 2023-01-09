@@ -27,3 +27,13 @@ yarn hardhat deploy --network goerli
 ----
 yarn hardhat test (enable gas reporter dans hardhat config)
 yarn hadhat coverage
+
+
+---
+
+natspec
+yarn add hardhat-docgen | le require hardhat-docgen se fait dans le fichier de config 
+docgen: {
+    path:".docs",
+    clear:true
+}
