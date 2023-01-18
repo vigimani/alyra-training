@@ -1,0 +1,145 @@
+{
+  "address": "0x5FbDB2315678afecb367f032d93F642f64180aa3",
+  "abi": [
+    {
+      "inputs": [],
+      "name": "Bank__NotEnoughEthersOnTheSC",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "Bank__NotEnoughFundsProvided",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "Bank__WithdrawFailed",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "getBalance",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "getMyBalance",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "sendEthers",
+      "outputs": [],
+      "stateMutability": "payable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_amount",
+          "type": "uint256"
+        }
+      ],
+      "name": "withdraw",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
+  ],
+  "transactionHash": "0x2b3fad1ffbb9ea6a2b6f3915361d23d58f4dd9146745ab64b030cc0f1ff9800e",
+  "receipt": {
+    "to": null,
+    "from": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+    "contractAddress": "0x5FbDB2315678afecb367f032d93F642f64180aa3",
+    "transactionIndex": 0,
+    "gasUsed": "307227",
+    "logsBloom": "0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+    "blockHash": "0xd0ed3f3f2b81a925417e84b8a7c1170e1b5be11bd3b68dcae43b42a5b09ca5d5",
+    "transactionHash": "0x2b3fad1ffbb9ea6a2b6f3915361d23d58f4dd9146745ab64b030cc0f1ff9800e",
+    "logs": [],
+    "blockNumber": 1,
+    "cumulativeGasUsed": "307227",
+    "status": 1,
+    "byzantium": true
+  },
+  "args": [],
+  "numDeployments": 1,
+  "solcInputHash": "c1c638b1ef335918ecebfef442c809e9",
+  "metadata": "{\"compiler\":{\"version\":\"0.8.17+commit.8df45f5f\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[],\"name\":\"Bank__NotEnoughEthersOnTheSC\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"Bank__NotEnoughFundsProvided\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"Bank__WithdrawFailed\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"getBalance\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getMyBalance\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"sendEthers\",\"outputs\":[],\"stateMutability\":\"payable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_amount\",\"type\":\"uint256\"}],\"name\":\"withdraw\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}],\"devdoc\":{\"author\":\"Ben BK\",\"kind\":\"dev\",\"methods\":{\"withdraw(uint256)\":{\"params\":{\"_amount\":\"The amount to withdraw\"}}},\"title\":\"A simple wallet contract\",\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{\"sendEthers()\":{\"notice\":\"Allows to send Ethers to the smart contract\"},\"withdraw(uint256)\":{\"notice\":\"Allows to withdraw Ethers from the smart contract\"}},\"notice\":\"Allows to send and withdraw Ethers from a smart contract\",\"version\":1}},\"settings\":{\"compilationTarget\":{\"contracts/Bank.sol\":\"Bank\"},\"evmVersion\":\"london\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\",\"useLiteralContent\":true},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"contracts/Bank.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\npragma solidity 0.8.17;\\n\\nerror Bank__NotEnoughFundsProvided();\\nerror Bank__NotEnoughEthersOnTheSC();\\nerror Bank__WithdrawFailed();\\n\\n/// @title A simple wallet contract\\n/// @author Ben BK\\n/// @notice Allows to send and withdraw Ethers from a smart contract\\n\\ncontract Bank {\\n\\n    mapping(address => uint) balances;\\n\\n    /// @notice Allows to send Ethers to the smart contract\\n    function sendEthers() external payable {\\n        if(msg.value < 1 wei) {\\n            revert Bank__NotEnoughFundsProvided();\\n        }\\n        balances[msg.sender] += msg.value;\\n    }\\n\\n    /// @notice Allows to withdraw Ethers from the smart contract\\n    /// @param _amount The amount to withdraw\\n    function withdraw(uint _amount) external {\\n        if(_amount > balances[msg.sender]) {\\n            revert Bank__NotEnoughEthersOnTheSC();\\n        }\\n        balances[msg.sender] -= _amount;\\n        (bool received, ) = msg.sender.call{value: _amount}(\\\"\\\");\\n        if(!received) {\\n            revert Bank__WithdrawFailed();\\n        }\\n    }\\n\\n    function getBalance() public view returns (uint) {\\n        return address(this).balance;\\n    }\\n\\n    function getMyBalance() public view returns (uint) {\\n        return address(msg.sender).balance;\\n    }\\n}\",\"keccak256\":\"0x87b7b1d952e268c7ddda0eee9151481c46bbbe3537725d571e4d657c5352c09c\",\"license\":\"MIT\"}},\"version\":1}",
+  "bytecode": "0x608060405234801561001057600080fd5b5061049f806100206000396000f3fe60806040526004361061003f5760003560e01c80630783cda71461004457806312065fe01461004e5780632e1a7d4d146100795780634c738909146100a2575b600080fd5b61004c6100cd565b005b34801561005a57600080fd5b5061006361015f565b6040516100709190610313565b60405180910390f35b34801561008557600080fd5b506100a0600480360381019061009b919061035f565b610167565b005b3480156100ae57600080fd5b506100b76102db565b6040516100c49190610313565b60405180910390f35b6001341015610108576040517f06f7aa0000000000000000000000000000000000000000000000000000000000815260040160405180910390fd5b346000803373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff168152602001908152602001600020600082825461015691906103bb565b92505081905550565b600047905090565b6000803373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff168152602001908152602001600020548111156101df576040517feb85367a00000000000000000000000000000000000000000000000000000000815260040160405180910390fd5b806000803373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff168152602001908152602001600020600082825461022d91906103ef565b9250508190555060003373ffffffffffffffffffffffffffffffffffffffff168260405161025a90610454565b60006040518083038185875af1925050503d8060008114610297576040519150601f19603f3d011682016040523d82523d6000602084013e61029c565b606091505b50509050806102d7576040517f8521549000000000000000000000000000000000000000000000000000000000815260040160405180910390fd5b5050565b60003373ffffffffffffffffffffffffffffffffffffffff1631905090565b6000819050919050565b61030d816102fa565b82525050565b60006020820190506103286000830184610304565b92915050565b600080fd5b61033c816102fa565b811461034757600080fd5b50565b60008135905061035981610333565b92915050565b6000602082840312156103755761037461032e565b5b60006103838482850161034a565b91505092915050565b7f4e487b7100000000000000000000000000000000000000000000000000000000600052601160045260246000fd5b60006103c6826102fa565b91506103d1836102fa565b92508282019050808211156103e9576103e861038c565b5b92915050565b60006103fa826102fa565b9150610405836102fa565b925082820390508181111561041d5761041c61038c565b5b92915050565b600081905092915050565b50565b600061043e600083610423565b91506104498261042e565b600082019050919050565b600061045f82610431565b915081905091905056fea264697066735822122028827b72189077f3024ae55c91fd52a820b5ed404fe8f12a4ec5dc210c84739b64736f6c63430008110033",
+  "deployedBytecode": "0x60806040526004361061003f5760003560e01c80630783cda71461004457806312065fe01461004e5780632e1a7d4d146100795780634c738909146100a2575b600080fd5b61004c6100cd565b005b34801561005a57600080fd5b5061006361015f565b6040516100709190610313565b60405180910390f35b34801561008557600080fd5b506100a0600480360381019061009b919061035f565b610167565b005b3480156100ae57600080fd5b506100b76102db565b6040516100c49190610313565b60405180910390f35b6001341015610108576040517f06f7aa0000000000000000000000000000000000000000000000000000000000815260040160405180910390fd5b346000803373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff168152602001908152602001600020600082825461015691906103bb565b92505081905550565b600047905090565b6000803373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff168152602001908152602001600020548111156101df576040517feb85367a00000000000000000000000000000000000000000000000000000000815260040160405180910390fd5b806000803373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff168152602001908152602001600020600082825461022d91906103ef565b9250508190555060003373ffffffffffffffffffffffffffffffffffffffff168260405161025a90610454565b60006040518083038185875af1925050503d8060008114610297576040519150601f19603f3d011682016040523d82523d6000602084013e61029c565b606091505b50509050806102d7576040517f8521549000000000000000000000000000000000000000000000000000000000815260040160405180910390fd5b5050565b60003373ffffffffffffffffffffffffffffffffffffffff1631905090565b6000819050919050565b61030d816102fa565b82525050565b60006020820190506103286000830184610304565b92915050565b600080fd5b61033c816102fa565b811461034757600080fd5b50565b60008135905061035981610333565b92915050565b6000602082840312156103755761037461032e565b5b60006103838482850161034a565b91505092915050565b7f4e487b7100000000000000000000000000000000000000000000000000000000600052601160045260246000fd5b60006103c6826102fa565b91506103d1836102fa565b92508282019050808211156103e9576103e861038c565b5b92915050565b60006103fa826102fa565b9150610405836102fa565b925082820390508181111561041d5761041c61038c565b5b92915050565b600081905092915050565b50565b600061043e600083610423565b91506104498261042e565b600082019050919050565b600061045f82610431565b915081905091905056fea264697066735822122028827b72189077f3024ae55c91fd52a820b5ed404fe8f12a4ec5dc210c84739b64736f6c63430008110033",
+  "devdoc": {
+    "author": "Ben BK",
+    "kind": "dev",
+    "methods": {
+      "withdraw(uint256)": {
+        "params": {
+          "_amount": "The amount to withdraw"
+        }
+      }
+    },
+    "title": "A simple wallet contract",
+    "version": 1
+  },
+  "userdoc": {
+    "kind": "user",
+    "methods": {
+      "sendEthers()": {
+        "notice": "Allows to send Ethers to the smart contract"
+      },
+      "withdraw(uint256)": {
+        "notice": "Allows to withdraw Ethers from the smart contract"
+      }
+    },
+    "notice": "Allows to send and withdraw Ethers from a smart contract",
+    "version": 1
+  },
+  "storageLayout": {
+    "storage": [
+      {
+        "astId": 12,
+        "contract": "contracts/Bank.sol:Bank",
+        "label": "balances",
+        "offset": 0,
+        "slot": "0",
+        "type": "t_mapping(t_address,t_uint256)"
+      }
+    ],
+    "types": {
+      "t_address": {
+        "encoding": "inplace",
+        "label": "address",
+        "numberOfBytes": "20"
+      },
+      "t_mapping(t_address,t_uint256)": {
+        "encoding": "mapping",
+        "key": "t_address",
+        "label": "mapping(address => uint256)",
+        "numberOfBytes": "32",
+        "value": "t_uint256"
+      },
+      "t_uint256": {
+        "encoding": "inplace",
+        "label": "uint256",
+        "numberOfBytes": "32"
+      }
+    }
+  }
+}
